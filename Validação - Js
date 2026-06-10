@@ -1,0 +1,41 @@
+const form = document.getElementById("meuForm");
+
+form.addEventListener("submit", function(event) {
+    const nome = document.getElementById("nome").value;
+    const email = document.getElementById("email").value;
+    const idade = document.getElementById("idade").value;
+    const erro = document.getElementById("erro");
+
+    // Limpa mensagens anteriores
+    erro.textContent = "";
+
+    // 1. Validação do Nome (Não pode estar vazio)
+    if (nome.trim() === "") {
+        event.preventDefault();  // Impede o envio
+        erro.textContent = "O nome é obrigatório!";
+        erro.style.color = "red";
+        return; // Para a execução para mostrar um erro por vez
+    }
+
+    // 2. Validação do Email (Deve conter @)
+    if (!email.includes("@")) {
+        event.preventDefault(); // Impede o envio
+        erro.textContent = "E-mail inválido! Deve conter '@'.";
+        erro.style.color = "red";
+        return;
+    }
+
+    // 3. Validação da Idade (Deve ser maior que 0)
+    if (idade === "" || parseInt(idade) <= 0) {
+        event.preventDefault(); // Impede o envio
+        erro.textContent = "A idade deve ser maior que 0!";
+        erro.style.color = "red";
+        return;
+    }
+
+    // Se passar por tudo (Sucesso)
+    event.preventDefault(); // Travamos aqui só para ver a mensagem na tela
+    erro.textContent = "Formulário enviado com sucesso!";
+    erro.style.color = "green";
+    form.reset();
+});
